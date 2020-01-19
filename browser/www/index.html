@@ -1,167 +1,71 @@
-<DOCTYPE! HTML>
-<html>
-	<head>
-		<meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="stylesheet" href="bootstrap.min.css">
+<head>
+<script src="index.js"></script>
+<meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
 
-<script src="jquery.min.js"></script>
-	  <script src="popper.min.js"></script>
-
-	  <script src="bootstrap.min.js"></script>
-	</head>
-	<body>
-		<div class="container">
-			<h1 class="timezone"></h1>
-			<button type="button" class="btn btn-info btn-lg addNew" data-toggle="modal" data-target="#myModal">+</button>
-			 <div class="modal fade" id="myModal" role="dialog">
-				<div class="modal-dialog">
-				
-				  <!-- Modal content-->
-				  <div class="modal-content">
-					<div class="modal-header">
-					  
-					  <h4 class="modal-title">Set new alarm</h4>
-					  <button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-					  <div class="md-form">
-						  <input placeholder="HH:MM:SS" type="text" id="input_starttime" class="form-control">
-						</div>
-					</div>
-					<div class="modal-footer">
-					  <button type="button" class="btn btn-info" data-dismiss="modal" onclick=createNew(event)>Done</button>
-					  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
-				  </div>
-				  
-				</div>
-			  </div>
-			  <ul class="list-group">
-			  </ul>
+</head>
+<body>
+<style>
+.section
+{
+	float: left;
+	width: 100%;
+	margin-bottom: 50px;
+}
+.label
+{
+	float:left;
+	width: 100px;
+}
+a#create_button 
+{
+    text-decoration: underline;
+}
+</style>
+<div class="section">
+	Retrieval:</br></br>
+	<div id="container"></div>
+	<button onclick="retrieveAll()">retrieve all</button>
+</div>
+<div class="section">
+	Deletion: </br></br>
+	<input id="delete_inp" placeholder="id"></input>
+	<button onclick="deleteEntry()">delete</button>
+</div>
+<div class="section">
+	Creation:</br></br>
+	<div class="bill_category_form">
+		<div class="additional-form" type="id">
+			<div class="bill_form_container">
+				<div class="label" type="id">id:</div>
+				<input id="id" type="text" key="id" value="" placeholder="id">
+			</div>
 		</div>
-	</body>
-	<script>
-		var timearray = [];
-		var sound = new Audio();
-		sound.src = 'music.m4a';
-		
-		setInterval(
-			function()
-			{
-				var today = new Date();			
-				var time = today.getHours() + ":" + (("0" + today.getMinutes()).slice(-2)) + ":" + (("0" + today.getSeconds()).slice(-2));
-				document.getElementsByClassName("timezone")[0].innerText=time;
-				alarm(time);
-				
-			}, 1000);
-		function createNew(event)
-		{
-			var time = $('#input_starttime').val();
-			timearray.push(time);
-			includeInList(time);
-			console.log(timearray);
-		}
-		function alarm(time)
-		{
-			if($.inArray(time,timearray) != "-1")
-			{
-				sound.play();
-				setTimeout(function(){sound.pause()},30000);
+		<div class="additional-form" type="name">
+			<div class="bill_form_container">
+				<div class="label" type="name">Name:</div>
+				<input id="name" type="text" key="name" value="" placeholder="Name">
+			</div>
+		</div>
 
-			}
-		}
-		function toggleAlarm(event)
-		{
-			var time = $(event.currentTarget).attr("time");
-			if($.inArray(time,timearray) != "-1")
-			{
-				timearray.pop(time);
-			}
-			else
-			{
-				timearray.push(time);
-			}
-			console.log(timearray);
-		}
-		function includeInList(time)
-		{
-			var sliderhtml = '<label class="switch"><input class="checkbox_toggle" type="checkbox" time="'+time+'" onchange=toggleAlarm(event) checked><span class="slider round"></span></label>'
-			var listHtml = '<li class="list-group-item d-flex justify-content-between align-items-center">'+time+sliderhtml+'</li>';
-			$(".list-group").append(listHtml);
-		}
-	</script>
-	<style>
-	.addNew
-	{
-		    border-radius: 100%;
-			position: absolute;
-			bottom: 10px;
-			right: 10px;
-	}
-	h1.timezone 
-	{
-		text-align: center;
-		margin-top: 50px;
-	}
-	.switch {
-	  position: relative;
-	  display: inline-block;
-	  width: 60px;
-	  height: 34px;
-	}
+		<div class="additional-form" type="type">
+			<div class="bill_form_container">
+				<div class="label" type="type">Type:</div>
+				<div class="select-wrapper">
+				  <input id="type" type="text" label="type" key="type" value="" placeholder="type">
+					
+					</div>
+			</div>
+		</div>
 
-	.switch input { 
-	  opacity: 0;
-	  width: 0;
-	  height: 0;
-	}
-
-	.slider {
-	  position: absolute;
-	  cursor: pointer;
-	  top: 0;
-	  left: 0;
-	  right: 0;
-	  bottom: 0;
-	  background-color: #ccc;
-	  -webkit-transition: .4s;
-	  transition: .4s;
-	}
-
-	.slider:before {
-	  position: absolute;
-	  content: "";
-	  height: 26px;
-	  width: 26px;
-	  left: 4px;
-	  bottom: 4px;
-	  background-color: white;
-	  -webkit-transition: .4s;
-	  transition: .4s;
-	}
-
-	input:checked + .slider {
-	  background-color: #2196F3;
-	}
-
-	input:focus + .slider {
-	  box-shadow: 0 0 1px #2196F3;
-	}
-
-	input:checked + .slider:before {
-	  -webkit-transform: translateX(26px);
-	  -ms-transform: translateX(26px);
-	  transform: translateX(26px);
-	}
-
-	/* Rounded sliders */
-	.slider.round {
-	  border-radius: 34px;
-	}
-
-	.slider.round:before {
-	  border-radius: 50%;
-	}
-	</style>
-</html>
+		<div class="additional-form" type="description">
+			<div class="bill_form_container">
+				<div class="label" type="description">Description:</div>
+				<input type="text" id="description" label="description" key="description" value="" placeholder="Additional information">
+			</div>
+		</div>
+		</br>
+		</br>
+		<a class="link" id="create_button" onclick="createEntry()">Create</a>
+	</div>
+</div>
+</body>

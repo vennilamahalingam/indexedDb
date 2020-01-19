@@ -1,35 +1,9 @@
-function xhr_call(url, post_data, callback, post_format) {
-	var xhr_type = (post_data == "" ? "GET" : "POST");
+function xhr_call(url, post_data, callback, post_format) 
+{
 
-	var xhr	= new XMLHttpRequest();
-	xhr.withCredentials = true;
-	xhr.open(xhr_type, url, true);
-
-	switch(post_format) {
-		case "urlencoded":
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		break;
-		case "multipart":
-		// header must only be set by HTML form element; automatic, standard behavior
-		break;
-		case "text/plain":
-		default:
-		xhr.setRequestHeader("Content-Type", "text/plain");
-		break;
-	}
-
-	xhr.responseType = "text";
-	xhr.setRequestHeader("X-Auth", "424237be0ecd48ab8796a8d1912455644752834ef3ba467ebd7bb1022b25eff0");
-	
-	xhr.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			if (typeof callback === "function") {
-				callback(JSON.parse(this.responseText));
-			}
-		}
-	}
-
-	xhr.send(post_data);
+var resp = [{"id":"1","name":"General","type":"Expense","description":"Household Expense","access":"Enabled"},{"id":"2","name":"Telecom","type":"Expense","description":"Telecom Related Expense","access":"Enabled"},{"id":"3","name":"IT Services","type":"Expense","description":"IT Consulting & Development Expense","access":"Enabled"},{"id":"4","name":"Insurance","type":"Expense","description":"Insurance Payments","access":"Enabled"},{"id":"5","name":"Fuel","type":"Expense","description":"Fuel Purchases","access":"Enabled"},{"id":"6","name":"Car Maintenance","type":"Expense","description":"Vehicle Maintenance Expense","access":"Enabled"},{"id":"7","name":"Rent","type":"Expense","description":"Rent, Power, Hydro Expenses","access":"Enabled"},{"id":"8","name":"Entertainment","type":"Expense","description":"Entertainment Expenses","access":"Enabled"},{"id":"9","name":"Donations","type":"Expense","description":"Charitable Donations","access":"Enabled"},{"id":"10","name":"Misc Expense","type":"Expense","description":"Misc Expenses","access":"Enabled"}];
+	callback(resp);
+			
 }
 function createEntry(obj) 
 {
@@ -80,7 +54,7 @@ function deleteEntry()
    }
 }
 
-const dbName = "indexedDb";
+const dbName = "indexedDb1";
 var db, response;
 
 xhr_call("http://sftp.boyal.us:8080/api/?name=bill_category&action=list&offset=0&limit=10","",function(response)

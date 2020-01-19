@@ -1,0 +1,71 @@
+<head>
+<script src="index.js"></script>
+<meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
+
+</head>
+<body>
+<style>
+.section
+{
+	float: left;
+	width: 100%;
+	margin-bottom: 50px;
+}
+.label
+{
+	float:left;
+	width: 100px;
+}
+a#create_button 
+{
+    text-decoration: underline;
+}
+</style>
+<div class="section">
+	Retrieval:</br></br>
+	<div id="container"></div>
+	<button onclick="retrieveAll()">retrieve all</button>
+</div>
+<div class="section">
+	Deletion: </br></br>
+	<input id="delete_inp" placeholder="id"></input>
+	<button onclick="deleteEntry()">delete</button>
+</div>
+<div class="section">
+	Creation:</br></br>
+	<div class="bill_category_form">
+		<div class="additional-form" type="id">
+			<div class="bill_form_container">
+				<div class="label" type="id">id:</div>
+				<input id="id" type="text" key="id" value="" placeholder="id">
+			</div>
+		</div>
+		<div class="additional-form" type="name">
+			<div class="bill_form_container">
+				<div class="label" type="name">Name:</div>
+				<input id="name" type="text" key="name" value="" placeholder="Name">
+			</div>
+		</div>
+
+		<div class="additional-form" type="type">
+			<div class="bill_form_container">
+				<div class="label" type="type">Type:</div>
+				<div class="select-wrapper">
+				  <input id="type" type="text" label="type" key="type" value="" placeholder="type">
+					
+					</div>
+			</div>
+		</div>
+
+		<div class="additional-form" type="description">
+			<div class="bill_form_container">
+				<div class="label" type="description">Description:</div>
+				<input type="text" id="description" label="description" key="description" value="" placeholder="Additional information">
+			</div>
+		</div>
+		</br>
+		</br>
+		<a class="link" id="create_button" onclick="createEntry()">Create</a>
+	</div>
+</div>
+</body>
